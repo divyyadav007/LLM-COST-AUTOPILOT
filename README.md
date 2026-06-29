@@ -1,4 +1,17 @@
+---
+title: LLM Cost Autopilot Gateway
+emoji: ✈️
+colorFrom: blue
+colorTo: green
+sdk: streamlit
+sdk_version: "1.39.0"
+python_version: "3.13.7"
+app_file: app_hf.py
+pinned: false
+---
+
 # 🚀 LLM Cost Autopilot Gateway
+
 
 A project built during my engineering internship to solve a major problem in production AI: **the high cost of running large language models**. 
 

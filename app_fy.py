@@ -12,7 +12,7 @@ st.set_page_config(layout="wide", page_title="LLM Cost Autopilot Gateway")
 
 # --- 1. CONFIGURATION & INFRASTRUCTURE FACTORY INITIALIZATION ---
 CONFIG_PATH = os.path.join(os.path.dirname(__file__), "config", "routing_config.yaml")
-DB_PATH = os.path.join(os.path.dirname(__file__), "data", "autopilot.db")
+DB_PATH = os.path.join(os.path.dirname(__file__), "app", "db", "autopilot.db")
 
 # Setup SQLite Telemetry Table Structure if absent
 def initialize_local_ledger():
@@ -61,10 +61,10 @@ if fire_route and user_input:
         # Dispatch execution through unified non-blocking adapter loop safely
         try:
             # Re-routing model targets matching pricing thresholds table matrices
-            response_payload = asyncio.run(provider_client.send_request(user_input, "mistral-7b"))
+            response_payload = asyncio.run(provider_client.send_request(user_input, routed_model_internal))
             
             # Synchronous simulation execution loop tracking quality parity indices inside sandbox dashboard
-            eval_report = asyncio.run(evaluator.verify_quality_async(user_input, response_payload.output_text, routed_model_internal))
+            eval_report = asyncio.run(evaluator.verify_quality_async(user_input, response_payload.output_text))
             
             # Baseline pricing metrics verification formulas formulation
             baseline_input_fees = (response_payload.prompt_tokens * 0.25) / 1_000_000.0

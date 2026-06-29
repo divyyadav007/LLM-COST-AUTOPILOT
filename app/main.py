@@ -27,16 +27,11 @@ evaluator = EvaluatorService(provider_service=provider_client, gold_standard_mod
 class CompletionRequest(BaseModel):
     prompt: str
 
-def execute_background_audit_loop(prompt: str, output_text: str, routed_model: str, response_meta: Any):
+async def execute_background_audit_loop(prompt: str, output_text: str, routed_model: str, response_meta: Any):
     """
     Decoupled task queue worker executing evaluations and telemetry database commits.
     """
-    import asyncio
-    
-    # Setup dedicated runtime loop execution window for background thread
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    eval_report = loop.run_until_complete(evaluator.verify_quality_async(prompt, output_text, routed_model))
+    eval_report = await evaluator.verify_quality_async(prompt, output_text)
     
     # Financial aggregate projections calculation tracking formulas
     baseline_input_fees = (response_meta.prompt_tokens * 0.25) / 1_000_000.0
@@ -57,7 +52,6 @@ def execute_background_audit_loop(prompt: str, output_text: str, routed_model: s
         "eval_reason": eval_report.get("reason", "None")
     }
     insert_audit_entry(audit_log_payload)
-    loop.close()
 
 @app.post("/v1/completions")
 async def route_completion_request(payload: CompletionRequest, background_tasks: BackgroundTasks):
@@ -72,7 +66,7 @@ async def route_completion_request(payload: CompletionRequest, background_tasks:
     
     try:
         # Fast path delivery handling - routed directly to target provider allocation loop
-        response_data = await provider_client.send_request(payload.prompt, "mistral-7b")
+        response_data = await provider_client.send_request(payload.prompt, routed_model)
         
         # Enqueue background telemetry auditing completely out of user wait-time threads
         background_tasks.add_task(
@@ -131,14 +125,13 @@ async def runtime_production_simulation_pipeline():
         # 2. Fire cheap fast-track model response path
         try:
             # Running response pipeline on actual endpoint
-            response = await provider_client.send_request(user_prompt, "mistral-7b")
+            response = await provider_client.send_request(user_prompt, routed_model)
             
             # 3. Fire immediate synchronous evaluation pipeline for current validation trace simulation
             print("[BACKGROUND SYSTEM] Compiling quality parity matrices metrics...")
             eval_report = await evaluator.verify_quality_async(
                 prompt=user_prompt,
-                cheap_model_output=response.output_text,
-                cheap_model_name=routed_model
+                cheap_model_output=response.output_text
             )
 
             # Heuristic analysis to compare baseline parameters if everything was passed onto Premium Model directly

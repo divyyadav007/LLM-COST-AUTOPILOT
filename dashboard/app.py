@@ -3,7 +3,7 @@ import pandas as pd
 import sqlite3
 import os
 
-st.set_page_col = "wide"
+st.set_page_config(layout="wide")
 st.title("📊 LLM Cost Autopilot Telemetry Center")
 st.markdown("### Real-Time Financial ROI Monitoring & Model Performance Insights")
 

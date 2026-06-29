@@ -12,7 +12,7 @@ class EvaluatorService:
         self.provider = provider_service
         self.gold_model = gold_standard_model
 
-    async def verify_quality_async(self, prompt: str, cheap_model_output: str, cheap_model_name: str) -> Dict[str, Any]:
+    async def verify_quality_async(self, prompt: str, cheap_model_output: str) -> Dict[str, Any]:
         """
         Background worker engine: Ye cheap model ke output ko gold standard model
         ke response se compare karke quality score generate karta hai.

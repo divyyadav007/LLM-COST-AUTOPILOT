@@ -1,0 +1,37 @@
+providers:
+  groq:
+    base_url: "https://api.groq.com/openai/v1"
+    api_key_env: "GROQ_API_KEY"
+  mistral:
+    base_url: "https://api.mistral.ai/v1"
+    api_key_env: "MISTRAL_API_KEY"
+
+models:
+  llama3-8b:
+    provider: "groq"
+    model_id: "llama3-8b-8192"
+    input_cost_per_m: 0.05
+    output_cost_per_m: 0.08
+    tier: "simple"
+  
+  mistral-7b:
+    provider: "mistral"
+    model_id: "open-mistral-7b"
+    input_cost_per_m: 0.25
+    output_cost_per_m: 0.25
+    tier: "moderate"
+
+  mixtral-8x7b:
+    provider: "groq"
+    model_id: "mixtral-8x7b-32768"
+    input_cost_per_m: 0.27
+    output_cost_per_m: 0.27
+    tier: "complex"
+
+    
+
+# Append this validation map configuration below your existing registry structure inside the config file
+tier_model_mapping:
+  simple: "llama3-8b"
+  moderate: "mistral-7b"
+  complex: "mixtral-8x7b"

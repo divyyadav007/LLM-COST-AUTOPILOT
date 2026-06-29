@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  autopilot-core-engine:
+    build: .
+    container_name: cost_autopilot_gateway_container
+    ports:
+      - "8000:8000"  # FastAPI Egress Network Interface Port
+      - "8501:8501"  # Streamlit ROI Analytics Telemetry Console Port
+    env_file:
+      - .env
+    volumes:
+      - autopilot_sqlite_volume:/workspace/app/db  # Persistent transaction logs trail synchronization state
+
+volumes:
+  autopilot_sqlite_volume:
+    name: autopilot_shared_persistence_volume

@@ -1,0 +1,25 @@
+# --- Async Web Framework & Core Gateway (Python 3.13.7 Native) ---
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+
+# --- Production Asynchronous Network Stack ---
+httpx>=0.28.0
+
+# --- Advanced Data Contracts & Env Parsers ---
+pydantic>=2.9.0
+pyyaml>=6.0.2
+python-dotenv>=1.0.1
+
+# --- Token Estimation (Ensuring compatibility with Python 3.13 binary wheels) ---
+tiktoken>=0.7.0
+
+# --- AI Engine & Numerical Processing (Explicit Python 3.13 Compilations) ---
+numpy>=2.1.0
+pandas>=2.2.3
+scikit-learn>=1.5.2
+
+# --- Web Interface & Deployment Dashboard ---
+streamlit>=1.39.0
+
+# --- Multiparsers for Core Server APIs ---
+python-multipart>=0.0.12

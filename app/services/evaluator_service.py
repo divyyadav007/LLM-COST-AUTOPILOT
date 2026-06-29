@@ -61,10 +61,10 @@ class EvaluatorService:
             json_match = re.search(r"```json\s*(\{.*?\})\s*```", eval_text, re.DOTALL)
             
             if json_match:
-                parsed_metrics = json.loads(json_match.group(1))
+                parsed_metrics = json.loads(json_match.group(1), strict=False)
             else:
                 # Fallback: code fences na ho toh complete text block ko extract karo
-                parsed_metrics = json.loads(eval_text.strip())
+                parsed_metrics = json.loads(eval_text.strip(), strict=False)
 
             score = float(parsed_metrics.get("score", 50.0))
             reason = parsed_metrics.get("reason", "Fails to present structured logs format evaluation.")

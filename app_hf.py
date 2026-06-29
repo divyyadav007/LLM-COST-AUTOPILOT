@@ -4,9 +4,13 @@ import yaml
 import os
 import sqlite3
 import asyncio
+from dotenv import load_dotenv
 from app.services.provider_service import ProviderService
 from app.services.classifier_service import ClassifierService
 from app.services.evaluator_service import EvaluatorService
+
+# Load environment variables
+load_dotenv()
 
 st.set_page_config(layout="wide", page_title="LLM Cost Autopilot Gateway")
 

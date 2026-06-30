@@ -1,4 +1,4 @@
-# 🚀 LLM Cost Autopilot Gateway
+## LLM Cost Autopilot Gateway
 
 An asynchronous, production-grade AI gateway designed to dynamically optimize
 enterprise LLM consumption expenditures by **30%+ with zero semantic quality

@@ -13,8 +13,7 @@ An asynchronous, production-grade cost-optimizing AI gateway designed to dynamic
 ## Technical Presentation
 
 ### Core Dashboard Interface
-![System Interface Placeholder](https://raw.githubusercontent.com/divyyadav007/LLM-COST-AUTOPILOT/main/docs/assets/dashboard_mockup.png)
-*A placeholder for the real-time financial ROI and quality metrics visualization interface.*
+<img width="1919" height="914" alt="Screenshot 2026-06-30 105119" src="https://github.com/user-attachments/assets/61051d36-bcf1-4c85-b8f8-ac6346fd358a" />
 
 ---
 

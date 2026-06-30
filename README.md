@@ -282,5 +282,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 
-**Divy Yadav** - [divyyadav007](https://github.com/divyyadav007)
+**Divyanshu Yadav** - [divyyadav007](https://github.com/divyyadav007)
 Project Link: [https://github.com/divyyadav007/LLM-COST-AUTOPILOT](https://github.com/divyyadav007/LLM-COST-AUTOPILOT)

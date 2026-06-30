@@ -3,9 +3,10 @@ FROM python:3.13-slim
 
 WORKDIR /workspace
 
-# Install system utilities needed for building low-level binary extensions safely
+# Install system utilities needed for building low-level binary extensions safely, and nginx
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
+    nginx \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy configuration matrices dependencies directly inside target workspace paths
@@ -17,8 +18,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
 
 COPY . .
 
-# Expose ports mapping both FastAPI gateway and visual telemetry analytics engines console
-EXPOSE 8000
-EXPOSE 8501
+# Expose ports mapping the reverse proxy gateway
+EXPOSE 8080
 
-CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port 8000 & streamlit run dashboard/app.py --server.port 8501 --server.address 0.0.0.0"]
+CMD ["python", "entrypoint.py"]

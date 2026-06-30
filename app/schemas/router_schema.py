@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import Optional, Dict, Any  
+
 
 class ModelResponse(BaseModel):
     provider: str = Field(..., description="The upstream cloud provider handled.")

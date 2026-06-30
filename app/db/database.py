@@ -1,24 +1,36 @@
-import sqlite3
+import logging
 import os
+import sqlite3
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "autopilot.db")
+from app.core.config import settings
 
-def get_db_connection():
+logger = logging.getLogger(__name__)
+
+
+def get_db_connection() -> sqlite3.Connection:
     """
     Establishes and configures thread connection protocols with SQLite backend.
+
+    Returns:
+        sqlite3.Connection: A sqlite3 connection with sqlite3.Row configured.
     """
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(settings.DB_PATH)
     # Enable associative dictionary rows instead of raw tuple indices
     conn.row_factory = sqlite3.Row
     return conn
 
-def init_db_infrastructure():
+
+def init_db_infrastructure() -> None:
     """
     Executes table configuration syntax mapping audit logs telemetry properties.
     """
+    logger.info("Initializing database infrastructure at %s", settings.DB_PATH)
+    # Ensure parent directories exist
+    os.makedirs(os.path.dirname(settings.DB_PATH), exist_ok=True)
+
     conn = get_db_connection()
     cursor = conn.cursor()
-    
+
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS audit_logs (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -38,3 +50,4 @@ def init_db_infrastructure():
     """)
     conn.commit()
     conn.close()
+    logger.info("Database infrastructure initialized successfully.")

@@ -23,7 +23,7 @@ run-api:
 	$(UVICORN) app.main:app --reload --port 8000
 
 run-dashboard:
-	$(STREAMLIT) run dashboard/app.py --server.port 8501
+	$(STREAMLIT) run dashboard/dashboard.py --server.port 8501
 
 clean:
 	rm -rf __pycache__ .pytest_cache .ruff_cache app/__pycache__ app/db/__pycache__ app/services/__pycache__ app/schemas/__pycache__ app/core/__pycache__ dashboard/__pycache__

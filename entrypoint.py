@@ -136,7 +136,7 @@ http {
     print("[SUPERVISOR] Launching Streamlit dashboard on 127.0.0.1:8501...")
     streamlit_proc = subprocess.Popen(
         [
-            "streamlit", "run", "dashboard/app.py",
+            "streamlit", "run", "dashboard/dashboard.py",
             "--server.port", "8501",
             "--server.address", "127.0.0.1",
             "--server.enableCORS", "false",

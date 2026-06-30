@@ -205,7 +205,7 @@ make run-dashboard
 ```
 Or run directly:
 ```bash
-streamlit run dashboard/app.py --server.port 8501
+streamlit run dashboard/dashboard.py --server.port 8501
 ```
 Access the dashboard in your browser at [http://localhost:8501](http://localhost:8501).
 

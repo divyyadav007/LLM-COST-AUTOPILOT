@@ -116,10 +116,19 @@ http {
         f.write(nginx_conf)
     print(f"[SUPERVISOR] Dynamic Nginx configuration written to {conf_path}")
 
+    # Prepare environment with PYTHONPATH set to the workspace root
+    env = os.environ.copy()
+    cwd = os.getcwd()
+    if "PYTHONPATH" in env:
+        env["PYTHONPATH"] = f"{cwd}:{env['PYTHONPATH']}"
+    else:
+        env["PYTHONPATH"] = cwd
+
     # Start FastAPI (Uvicorn)
     print("[SUPERVISOR] Launching FastAPI backend on 127.0.0.1:8000...")
     fastapi_proc = subprocess.Popen(
-        ["uvicorn", "app.main:app", "--host", "127.0.0.1", "--port", "8000"]
+        ["uvicorn", "app.main:app", "--host", "127.0.0.1", "--port", "8000"],
+        env=env
     )
     processes.append(fastapi_proc)
 
@@ -132,7 +141,8 @@ http {
             "--server.address", "127.0.0.1",
             "--server.enableCORS", "false",
             "--server.enableXsrfProtection", "false"
-        ]
+        ],
+        env=env
     )
     processes.append(streamlit_proc)
 
